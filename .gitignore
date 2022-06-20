@@ -34,3 +34,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/kotlin/com/my_credit/util/constant/PgPass.kt
+/src/main/kotlin/com/my_credit/util/constant/UrlConstant.kt

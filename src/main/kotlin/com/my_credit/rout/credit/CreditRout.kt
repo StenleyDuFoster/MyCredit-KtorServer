@@ -2,6 +2,7 @@ package com.my_credit.rout.credit
 
 import com.my_credit.data.model.CreditModel
 import com.my_credit.domain.CreditController
+import com.my_credit.util.constant.UrlConstant
 import com.my_credit.util.exception.ForbidenException
 import com.my_credit.util.exception.respondByException
 import io.ktor.http.*
