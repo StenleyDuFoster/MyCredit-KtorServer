@@ -1,0 +1,1 @@
+rootProject.name = "com.my_credit.my_credit"
