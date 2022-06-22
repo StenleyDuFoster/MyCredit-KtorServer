@@ -1,6 +1,5 @@
 package com.my_credit.service
 
-import com.my_credit.data.db.TokenDb
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ object TokenService {
     private fun removeExpireTokens() {
         kotlin.runCatching {
             transaction {
-                TokenDb.removeAllExpiredToken()
+
             }
         }
     }

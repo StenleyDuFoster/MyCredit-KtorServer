@@ -11,19 +11,16 @@ object UserDb : Table("user") {
     private val userPhoto = UserDb.varchar("user_photo", 200)
     private val isAdmin = UserDb.bool("is_admin")
 
-    fun findUser(userId: String): UserModel {
-        var model: UserModel?
+    fun findUser(userId: String) =
         UserDb.select {
             UserDb.userId eq userId
-        }.single().apply {
-            model = UserModel(
+        }.single().run {
+            UserModel(
                 userId = this[UserDb.userId],
                 userName = this[userName],
                 userPhoto = this[userPhoto],
                 isAdmin = this[isAdmin]
             )
         }
-        return model!!
-    }
 
 }

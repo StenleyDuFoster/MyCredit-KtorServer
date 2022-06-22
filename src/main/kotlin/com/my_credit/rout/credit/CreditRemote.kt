@@ -5,6 +5,7 @@ import com.my_credit.util.DateFormatter
 
 @kotlinx.serialization.Serializable
 data class CreditRemote(
+    val id: Long? = null,
     val userId: String,
     val cost: Float,
     val description: String? = null,
@@ -15,6 +16,7 @@ data class CreditRemote(
 ) {
 
     constructor(model: CreditModel) : this(
+        model.id,
         model.userId,
         model.cost,
         model.description,

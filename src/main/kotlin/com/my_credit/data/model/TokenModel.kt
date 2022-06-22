@@ -6,6 +6,5 @@ class TokenModel(
     val accessToken: String,
     val refreshToken: String,
     val userId: String,
-    val id: String? = null,
     val expire: Date
 )

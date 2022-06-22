@@ -26,8 +26,11 @@ object FinishRequestDb : Table("finish_request") {
     fun getByUserId(userId: String): List<FinishRequestModel> =
         FinishRequestDb.select { FinishRequestDb.userId eq userId }.mapToModels()
 
-    fun getByCreditId(creditId: Long): List<FinishRequestModel> =
-        FinishRequestDb.select { FinishRequestDb.creditId eq creditId }.mapToModels()
+    fun getByCreditId(creditId: Long): FinishRequestModel? =
+        FinishRequestDb.select { FinishRequestDb.creditId eq creditId }.singleOrNull()?.mapToModel()
+
+    fun getById(requestId: Long): FinishRequestModel? =
+        FinishRequestDb.select { id eq requestId }.singleOrNull()?.mapToModel()
 
     fun getAllRequest(): List<FinishRequestModel> =
         FinishRequestDb.selectAll().mapToModels()
@@ -38,6 +41,15 @@ object FinishRequestDb : Table("finish_request") {
             it[creditId],
             it[id],
             Date(it[time])
+        )
+    }
+
+    private fun ResultRow.mapToModel() = this.run {
+        FinishRequestModel(
+            this[userId],
+            this[creditId],
+            this[id],
+            Date(this[time])
         )
     }
 

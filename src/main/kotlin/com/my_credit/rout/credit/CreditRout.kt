@@ -43,7 +43,7 @@ fun Application.configureCreditRouting() {
                 kotlin.runCatching {
                     CreditController.saveCredit(it.first, CreditModel(it.second))
                 }.onSuccess {
-                    call.respond(HttpStatusCode.OK)
+                    call.respond(HttpStatusCode.OK, CreditRemote(it))
                 }.onFailure {
                     call.respondByException(it)
                 }
@@ -63,7 +63,7 @@ fun Application.configureCreditRouting() {
                 }.onSuccess {
                     call.respond(HttpStatusCode.OK)
                 }.onFailure {
-                    call.respondByException(it)
+                    call.respondByException(it, defaultMessage = it.stackTrace.joinToString(separator = ","))
                 }
             }.onFailure {
                 call.respondByException(it)

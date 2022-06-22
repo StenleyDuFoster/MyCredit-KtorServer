@@ -7,7 +7,7 @@ import java.util.*
 //ALTER TABLE your_table ADD COLUMN key_column BIGSERIAL PRIMARY KEY;
 object CreditDb : Table("credit") {
 
-    private val id = CreditDb.long("id")
+    private val id = CreditDb.long("id").autoIncrement()
     private val userId = CreditDb.varchar("user_id", 50)
     private val cost = CreditDb.float("cost")
     private val description = CreditDb.varchar("description", 100)
@@ -16,7 +16,7 @@ object CreditDb : Table("credit") {
     private val deptPayTime = CreditDb.varchar("dept_pay_time", 100)
     private val tag = CreditDb.varchar("tag", 50)
 
-    fun insert(model: CreditModel) {
+    fun insert(model: CreditModel): Long =
         CreditDb.insert {
             it[userId] = model.userId
             it[cost] = model.cost
@@ -27,8 +27,7 @@ object CreditDb : Table("credit") {
             model.tag?.let { tag -> it[CreditDb.tag] = tag }
             model.finishTime?.let { finishTime -> it[CreditDb.finishTime] = finishTime.time.toString() }
             model.deptPayTime?.let { deptPayTime -> it[CreditDb.deptPayTime] = deptPayTime.time.toString() }
-        }
-    }
+        } get id
 
     fun update(model: CreditModel) {
         CreditDb.update(where = { id.eq(model.id!!) }, body = {

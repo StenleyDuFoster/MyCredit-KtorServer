@@ -5,7 +5,7 @@ import com.my_credit.util.DateFormatter
 import java.util.*
 
 data class CreditModel(
-    val id: Long?,
+    var id: Long?,
     val userId: String,
     val cost: Float,
     val description: String?,

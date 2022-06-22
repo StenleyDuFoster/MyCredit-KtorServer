@@ -3,6 +3,7 @@ package com.my_credit.rout.login
 import com.my_credit.domain.UserController
 import com.my_credit.util.constant.UrlConstant
 import com.my_credit.util.error.IncorrectLoginCode
+import com.my_credit.util.exception.respondByException
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -21,18 +22,15 @@ fun Application.configureLoginRouting() {
                 call.respond(HttpStatusCode.BadRequest)
             }.onSuccess {
                 kotlin.runCatching {
-                    UserController.login(it.code)
+                    UserController.createTokenByUserId(it.code)
                 }.onFailure {
-                    com.my_credit.util.error.InternalError().respond(call)
+                    call.respondByException(it)
                 }.onSuccess { resultToken ->
-                    resultToken.onSuccess {
-                        call.respond(TokenRemote(it))
-                    }.onFailure {
-                        IncorrectLoginCode().respond(call)
-                    }
+                    call.respond(TokenRemote(resultToken))
+                }.onFailure {
+                    call.respondByException(it)
                 }
             }
         }
     }
-
 }
