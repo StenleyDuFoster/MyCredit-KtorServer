@@ -4,4 +4,5 @@ tech:
   -ktor server;
   -exposed;
   -postgresql;
-  -kotlin json.
+  -kotlin json;
+  -ktor auth jwt.
